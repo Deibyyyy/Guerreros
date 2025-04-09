@@ -143,7 +143,6 @@ input, select {
   color: #d00000;
 }
 
-/* Alineación de los botones */
 .player-actions {
   display: flex;
   gap: 10px;

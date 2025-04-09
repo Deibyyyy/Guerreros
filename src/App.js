@@ -16,7 +16,6 @@ function App() {
   const [selectedWarriors, setSelectedWarriors] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Estados compartidos
   const [customTypes, setCustomTypes] = useState([
     { name: "Guerrero", description: "Especialista en combate cuerpo a cuerpo" },
     { name: "Mago", description: "Maestro de artes arcanas y hechizos" },

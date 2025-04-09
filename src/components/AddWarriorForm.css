@@ -1,4 +1,3 @@
-/* Formulario principal */
 .warrior-form {
   display: flex;
   flex-direction: column;
@@ -6,17 +5,15 @@
   margin: 20px 0;
 }
 
-/* Estilo general de los inputs */
 .warrior-form input,
 .warrior-form textarea {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  width: 250px; /* Consistencia en tamaño */
+  width: 250px; 
   margin-bottom: 10px;
 }
 
-/* Estilo para el botón de submit */
 .warrior-form button {
   padding: 8px 12px;
   border: none;
@@ -31,46 +28,42 @@
   background-color: #218838;
 }
 
-/* Estilo para las etiquetas */
 .warrior-form label {
   font-weight: bold;
   margin-bottom: 5px;
-  display: block; /* Para que el label esté encima del input */
+  display: block; 
 }
 
-/* Contenedores para los grupos de campos */
 .warrior-form div {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* Estilo para los campos "Raza" y "Resistencia" juntos */
 .race-resistance-wrapper {
   display: flex;
-  gap: 15px; /* Espacio entre los campos */
+  gap: 15px; 
   width: 100%;
-  background-color: #f0f8ff; /* Fondo suave */
+  background-color: #f0f8ff; 
   padding: 10px;
   border-radius: 6px;
 }
 
 .race-resistance-wrapper input {
-  width: 230px; /* Ajuste para que ambos encajen */
+  width: 230px; 
 }
 
-/* Estilo para los campos "Poder" y "Poder de Ataque" juntos */
 .powers-wrapper {
   display: flex;
   gap: 15px;
   width: 100%;
-  background-color: #f0f8ff; /* Fondo suave */
+  background-color: #f0f8ff; 
   padding: 10px;
   border-radius: 6px;
 }
 
 .powers-wrapper input {
-  width: 230px; /* Ajuste para que ambos encajen */
+  width: 230px; 
 }
 
 .powers-wrapper small {
@@ -79,14 +72,12 @@
   margin-top: 5px;
 }
 
-/* Estilo para el campo "Poder de Ataque" */
 .attack-power-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-/* Estilo para las áreas de texto */
 .warrior-form textarea {
   width: 100%;
   padding: 8px;
@@ -100,7 +91,6 @@
   font-style: italic;
 }
 
-/* Estilo para la imagen cargada del guerrero */
 .warrior-form .image-wrapper {
   display: flex;
   align-items: center;
@@ -114,7 +104,6 @@
   border-radius: 5px;
 }
 
-/* Estilo para el card del guerrero, asegurando que la imagen y el nombre estén alineados */
 .warrior-card {
   display: flex;
   align-items: center;
@@ -136,7 +125,6 @@
   font-size: 18px;
   margin: 0;
 }
-/* Estilos para el modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -181,7 +169,6 @@
   cursor: pointer;
 }
 
-/* Estilos para los selects */
 .warrior-form select {
   padding: 8px;
   border-radius: 6px;
@@ -190,7 +177,6 @@
   margin-bottom: 10px;
 }
 
-/* Estilo para el botón de agregar poder */
 .powers-wrapper button {
   background-color: #28a745;
   color: white;
@@ -204,7 +190,6 @@
 .powers-wrapper button:hover {
   background-color: #218838;
 }
-/* Estilos para los modales de gestión */
 .modal {
   background: white;
   padding: 20px;
@@ -296,7 +281,6 @@
   color: white;
 }
 
-/* Estilos para inputs y textareas en los modales */
 .modal input,
 .modal textarea {
   width: 100%;
