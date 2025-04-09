@@ -1,35 +1,182 @@
-import { Warrior } from "../Models/Warrior";
-
-const races = ["Humano", "Elfo", "Orco", "Enano"];
-const types = ["Arquero", "Mago", "Guerrero", "Asesino"];
-const powerList = [
-  "Fuego", "Hielo", "Viento", "Tierra", "Rayo",
-  "Curación", "Invisibilidad", "Telequinesis", "Vuelo", "Súper fuerza"
+export const warriors = [
+  {
+    id: 1,
+    name: "Azhur",
+    race: "Orco",
+    type: "Berserker",
+    power: "Furia salvaje",
+    attackPower: "50",
+    resistance: "30",
+    lifePoints: "120",
+    energy: "80",
+    description: "Un guerrero orco que canaliza su furia en poder destructivo. Muy fuerte en combate cuerpo a cuerpo.",
+  },
+  {
+    id: 2,
+    name: "Elindra",
+    race: "Elfo",
+    type: "Arquera",
+    power: "Flecha de hielo",
+    attackPower: "45",
+    resistance: "20",
+    lifePoints: "90",
+    energy: "100",
+    description: "Elindra es una arquera ágil y precisa, capaz de congelar a sus enemigos con flechas imbuidas en hielo.",
+  },
+  {
+    id: 3,
+    name: "Tharak",
+    race: "Humano",
+    type: "Paladín",
+    power: "Luz sagrada",
+    attackPower: "40",
+    resistance: "60",
+    lifePoints: "150",
+    energy: "70",
+    description: "Un paladín que invoca la luz sagrada para curar y proteger a sus aliados. Tiene gran resistencia.",
+  },
+  {
+    id: 4,
+    name: "Vorgar",
+    race: "Troll",
+    type: "Tanque",
+    power: "Regeneración",
+    attackPower: "60",
+    resistance: "100",
+    lifePoints: "200",
+    energy: "50",
+    description: "Vorgar es un tanque imparable que se regenera rápidamente durante las batallas, absorbiendo daño como pocos.",
+  },
+  {
+    id: 5,
+    name: "Selene",
+    race: "Elfa",
+    type: "Hechicera",
+    power: "Tormenta arcana",
+    attackPower: "55",
+    resistance: "40",
+    lifePoints: "110",
+    energy: "90",
+    description: "Selene es una poderosa hechicera capaz de invocar tormentas mágicas que arrasan con sus enemigos.",
+  },
+  {
+    id: 6,
+    name: "Drogar",
+    race: "Draconiano",
+    type: "Guerrero",
+    power: "Aliento de fuego",
+    attackPower: "70",
+    resistance: "50",
+    lifePoints: "130",
+    energy: "75",
+    description: "Un guerrero draconiano con la habilidad de lanzar fuego desde su boca. Muy poderoso en ataques a larga distancia.",
+  },
+  {
+    id: 7,
+    name: "Kaela",
+    race: "Humana",
+    type: "Asesina",
+    power: "Daga venenosa",
+    attackPower: "60",
+    resistance: "25",
+    lifePoints: "80",
+    energy: "120",
+    description: "Kaela es una asesina letal que se especializa en ataques rápidos y envenenados con su daga.",
+  },
+  {
+    id: 8,
+    name: "Morthak",
+    race: "Orco",
+    type: "Chaman",
+    power: "Totem espiritual",
+    attackPower: "40",
+    resistance: "45",
+    lifePoints: "100",
+    energy: "90",
+    description: "Morthak es un chaman orco que invoca los espíritus de la naturaleza para proteger a sus aliados y debilitar a sus enemigos.",
+  },
+  {
+    id: 9,
+    name: "Zendra",
+    race: "Elfa oscura",
+    type: "Nigromante",
+    power: "Invocación de muertos",
+    attackPower: "50",
+    resistance: "30",
+    lifePoints: "95",
+    energy: "110",
+    description: "Zendra es una nigromante que controla las fuerzas oscuras, capaz de invocar muertos para luchar por ella.",
+  },
+  {
+    id: 10,
+    name: "Fenrir",
+    race: "Licántropo",
+    type: "Guerrero",
+    power: "Transformación lunar",
+    attackPower: "75",
+    resistance: "60",
+    lifePoints: "140",
+    energy: "85",
+    description: "Fenrir es un licántropo que se transforma en una bestia feroz durante la luna llena, ganando fuerza y velocidad.",
+  },
+  {
+    id: 11,
+    name: "Ragnar",
+    race: "Vikingo",
+    type: "Berserker",
+    power: "Grito de guerra",
+    attackPower: "65",
+    resistance: "55",
+    lifePoints: "125",
+    energy: "80",
+    description: "Ragnar es un berserker vikingo que entra en un estado de frenesí con su grito de guerra, aumentando su ataque.",
+  },
+  {
+    id: 12,
+    name: "Lilith",
+    race: "Demonio",
+    type: "Hechicera",
+    power: "Fuego infernal",
+    attackPower: "80",
+    resistance: "40",
+    lifePoints: "110",
+    energy: "90",
+    description: "Lilith es una hechicera demoníaca con el poder de invocar fuego infernal para destruir a sus enemigos.",
+  },
+  {
+    id: 13,
+    name: "Goruk",
+    race: "Orco",
+    type: "Destructor",
+    power: "Aplastamiento brutal",
+    attackPower: "85",
+    resistance: "35",
+    lifePoints: "130",
+    energy: "70",
+    description: "Goruk es un destructor orco cuya fuerza física le permite aplastar a sus enemigos con su enorme maza.",
+  },
+  {
+    id: 14,
+    name: "Nyra",
+    race: "Hada",
+    type: "Sanadora",
+    power: "Curación brillante",
+    attackPower: "30",
+    resistance: "50",
+    lifePoints: "90",
+    energy: "120",
+    description: "Nyra es una hada sanadora que puede curar a sus aliados con su habilidad de curación brillante.",
+  },
+  {
+    id: 15,
+    name: "Tarkon",
+    race: "Minotauro",
+    type: "Tanque",
+    power: "Embiste feroz",
+    attackPower: "70",
+    resistance: "80",
+    lifePoints: "160",
+    energy: "60",
+    description: "Tarkon es un minotauro tan resistente como fuerte, con la capacidad de embestir a sus enemigos con su gran fuerza.",
+  },
 ];
-
-function getRandomElement(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function generateRandomName() {
-  const names = ["Thoran", "Arya", "Drog", "Lira", "Kron", "Zara"];
-  return getRandomElement(names);
-}
-
-function generatePowers() {
-  const shuffled = powerList.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, 5);
-}
-
-export const warriors = Array.from({ length: 10 }, (_, i) => {
-  return new Warrior(
-    i + 1,
-    generateRandomName(),
-    20 + Math.floor(Math.random() * 10),
-    getRandomElement(races),
-    getRandomElement(types),
-    generatePowers()
-  );
-});
-
-

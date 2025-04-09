@@ -1,0 +1,100 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .modal {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: #ccc;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .attribute-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+  
+  .attribute-row strong {
+    width: 70px;
+  }
+  
+  .attribute-row span {
+    flex-grow: 1;
+    word-break: break-word;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 4px;
+  }
+  
+  .delete-warrior-button {
+    margin-top: 20px;
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .toggle-button {
+    background-color: #f0f8ff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+  
+  .toggle-button:hover {
+    background-color: #d3e6f7;
+  }
+  
+  .icon-button {
+    margin-left: 10px;
+  }
+  
+  .delete-warrior-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 20px;
+  }
+  
+  .delete-warrior-button:hover {
+    background-color: #d32f2f;
+  }
+  

@@ -1,0 +1,22 @@
+.warrior-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  justify-content: center;
+}
+
+.warrior-card {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 16px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.warrior-card:hover {
+  transform: scale(1.03);
+  background-color: #e6e6e6;
+}

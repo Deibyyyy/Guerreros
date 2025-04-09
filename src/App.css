@@ -1,38 +1,217 @@
+/* App.css */
+
 .App {
   text-align: center;
+  font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.warrior-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  display: inline-block;
+  width: 200px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.warrior-card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  position: relative;
+}
+
+.modal h2 {
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.detail-label {
+  font-weight: bold;
+  margin-right: 5px;
+  flex: 1;
+  text-align: left;
+}
+
+.detail-value {
+  flex: 2;
+  text-align: left;
+}
+
+.icon-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 6px;
+  font-size: 16px;
+  padding: 2px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  margin-left: 10px;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
+
+input, select {
+  padding: 6px;
+  margin-right: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Tarjeta para el jugador */
+.player-card {
+  max-width: 350px;
+  margin: 30px auto 20px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #f0f4ff, #e0f7fa);
+  border: 2px solid #0077b6;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  color: #003049;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.player-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #023e8a;
+}
+
+.player-card p {
+  margin: 8px 0;
+  font-size: 1.1rem;
+}
+
+.player-card .lives {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #d00000;
+}
+
+/* Alineación de los botones */
+.player-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+/* Botones rojos */
+.btn-red {
+  background-color: red;
   color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-red:hover {
+  background-color: darkred;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.selected-warrior {
+  border: 2px solid #3498db;
+  background-color: #eaf4fb;
+}
+/* App.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  position: relative;
+}
+
+.modal h2 {
+  margin-bottom: 20px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ddd;
 }
