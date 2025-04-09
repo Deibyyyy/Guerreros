@@ -1,86 +1,156 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./WarriorDetail.css";
 
-function WarriorDetail({ warrior, onClose, onDelete, onEditAttribute, onDeleteAttribute }) {
-  if (!warrior) return null;
+function WarriorDetail({ warrior, onClose, onDelete, onEditAttribute, onDeleteAttribute, onUpdateWarrior }) {
+  const [image, setImage] = useState(null);
+  const fileInputRef = useRef(null);
 
-  const handleDeleteAttribute = (attribute) => {
-    onDeleteAttribute(attribute);
+  useEffect(() => {
+    if (warrior) {
+      setImage(warrior.image || null);
+    }
+  }, [warrior]);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Verifica el tipo de archivo
+      if (!file.type.match('image.*')) {
+        alert('Por favor selecciona un archivo de imagen válido');
+        return;
+      }
+
+      const reader = new FileReader();
+      
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+        setImage(imageUrl);
+        // Actualiza directamente el guerrero sin mostrar prompt
+        if (warrior) {
+          const updatedWarrior = {...warrior, image: imageUrl};
+          onUpdateWarrior(updatedWarrior); // Nueva prop para actualización directa
+        }
+      };
+
+      reader.onerror = () => {
+        console.error('Error al leer la imagen');
+        setImage(null);
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
+  const handleEditImage = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleDeleteImage = () => {
+    setImage(null);
+    // Actualiza directamente el guerrero sin mostrar prompt
+    if (warrior) {
+      const updatedWarrior = {...warrior, image: null};
+      onUpdateWarrior(updatedWarrior);
+    }
+  };
+
+  if (!warrior) return null;
+
+  const renderAttributeRow = (label, attribute) => (
+    <div className="attribute-row" key={attribute}>
+      <strong>{label}:</strong>
+      <span>{warrior[attribute] || "Vacío"}</span>
+      <button 
+        className="icon-button" 
+        onClick={() => onEditAttribute(attribute)}
+        aria-label={`Editar ${label}`}
+      >
+        ✏️
+      </button>
+      <button 
+        className="icon-button" 
+        onClick={() => onDeleteAttribute(attribute)}
+        aria-label={`Eliminar ${label}`}
+      >
+        🗑️
+      </button>
+    </div>
+  );
+
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <button className="close-button" onClick={onClose}>Cerrar</button>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <button className="close-button" onClick={onClose} aria-label="Cerrar">
+          &times;
+        </button>
+        
         <h2>Detalles del Guerrero</h2>
 
-        {/* Mostrar los detalles de los atributos */}
-        <div className="attribute-row">
-          <strong>Nombre:</strong>
-          <span>{warrior.name || "Vacío"}</span>
-          <button className="icon-button" onClick={() => onEditAttribute("name")}>✏️</button>
-          <button className="icon-button" onClick={() => handleDeleteAttribute("name")}>🗑️</button>
+        {/* Sección de Imagen */}
+        <div className="attribute-row image-row">
+          <strong>Imagen:</strong>
+          <div className={`warrior-image-container ${!image ? 'empty' : ''}`}>
+            {image ? (
+              <>
+                <img 
+                  src={image} 
+                  alt={`Imagen de ${warrior.name}`} 
+                  className="warrior-image"
+                  onError={() => setImage(null)}
+                />
+                <button 
+                  className="delete-image-button"
+                  onClick={handleDeleteImage}
+                  aria-label="Eliminar imagen"
+                >
+                  🗑️
+                </button>
+              </>
+            ) : (
+              <div className="image-placeholder" onClick={handleEditImage}>
+                <span>+</span>
+              </div>
+            )}
+          </div>
+          <button 
+            className="edit-image-button" 
+            onClick={handleEditImage}
+            aria-label={image ? "Cambiar imagen" : "Añadir imagen"}
+          >
+            {image ? "Cambiar" : "Añadir"} Imagen
+          </button>
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            onChange={handleImageChange}
+            ref={fileInputRef}
+            style={{ display: "none" }}
+          />
         </div>
 
-        <div className="attribute-row">
-          <strong>Raza:</strong>
-          <span>{warrior.race || "Vacío"}</span>
-          <button className="icon-button" onClick={() => onEditAttribute("race")}>✏️</button>
-          <button className="icon-button" onClick={() => handleDeleteAttribute("race")}>🗑️</button>
-        </div>
+        <h3>Identidad</h3>
+        {renderAttributeRow("Nombre", "name")}
+        {renderAttributeRow("Raza", "race")}
+        {renderAttributeRow("Tipo", "type")}
+        {renderAttributeRow("Poder", "power")}
 
-        <div className="attribute-row">
-          <strong>Tipo:</strong>
-          <span>{warrior.type || "Vacío"}</span>
-          <button className="icon-button" onClick={() => onEditAttribute("type")}>✏️</button>
-          <button className="icon-button" onClick={() => handleDeleteAttribute("type")}>🗑️</button>
-        </div>
+        <h3>Atributos de Combate</h3>
+        {renderAttributeRow("Poder de Ataque", "attackPower")}
+        {renderAttributeRow("Resistencia", "resistance")}
+        {renderAttributeRow("Puntos de Vida", "lifePoints")}
+        {renderAttributeRow("Energía", "energy")}
 
-        <div className="attribute-row">
-          <strong>Poder:</strong>
-          <span>{warrior.power || "Vacío"}</span>
-          <button className="icon-button" onClick={() => onEditAttribute("power")}>✏️</button>
-          <button className="icon-button" onClick={() => handleDeleteAttribute("power")}>🗑️</button>
-        </div>
+        <h3>Información Adicional</h3>
+        {renderAttributeRow("Descripción", "description")}
 
-        <div className="attribute-row">
-          <strong>Poder de Ataque:</strong>
-          <span>{warrior.attackPower || "Vacío"}</span>
-          <button className="icon-button" onClick={() => onEditAttribute("attackPower")}>✏️</button>
-          <button className="icon-button" onClick={() => handleDeleteAttribute("attackPower")}>🗑️</button>
-        </div>
-
-        <div className="attribute-row">
-          <strong>Resistencia:</strong>
-          <span>{warrior.resistance || "Vacío"}</span>
-          <button className="icon-button" onClick={() => onEditAttribute("resistance")}>✏️</button>
-          <button className="icon-button" onClick={() => handleDeleteAttribute("resistance")}>🗑️</button>
-        </div>
-
-        <div className="attribute-row">
-          <strong>Puntos de Vida:</strong>
-          <span>{warrior.lifePoints || "Vacío"}</span>
-          <button className="icon-button" onClick={() => onEditAttribute("lifePoints")}>✏️</button>
-          <button className="icon-button" onClick={() => handleDeleteAttribute("lifePoints")}>🗑️</button>
-        </div>
-
-        {/* Agregar el campo de Energía */}
-        <div className="attribute-row">
-          <strong>Energía:</strong>
-          <span>{warrior.energy || "Vacío"}</span>
-          <button className="icon-button" onClick={() => onEditAttribute("energy")}>✏️</button>
-          <button className="icon-button" onClick={() => handleDeleteAttribute("energy")}>🗑️</button>
-        </div>
-
-        {/* Aquí mostramos la descripción */}
-        <div className="attribute-row">
-          <strong>Descripción:</strong>
-          <span>{warrior.description || "Vacío"}</span> {/* Muestra "Vacío" si está vacío */}
-          <button className="icon-button" onClick={() => onEditAttribute("description")}>✏️</button>
-          <button className="icon-button" onClick={() => handleDeleteAttribute("description")}>🗑️</button>
-        </div>
-
-        <button className="delete-warrior-button" onClick={() => onDelete(warrior.id)}>Eliminar Guerrero</button>
+        <button 
+          className="delete-warrior-button" 
+          onClick={() => onDelete(warrior.id)}
+          aria-label="Eliminar guerrero"
+        >
+          Eliminar Guerrero
+        </button>
       </div>
     </div>
   );

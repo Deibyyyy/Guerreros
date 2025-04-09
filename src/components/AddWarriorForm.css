@@ -1,19 +1,22 @@
+/* Formulario principal */
 .warrior-form {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
   margin: 20px 0;
 }
 
-.warrior-form input {
+/* Estilo general de los inputs */
+.warrior-form input,
+.warrior-form textarea {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  width: 250px; /* Ajuste para que los campos sean más consistentes en tamaño */
-  margin-bottom: 10px; /* Espacio entre los campos */
+  width: 250px; /* Consistencia en tamaño */
+  margin-bottom: 10px;
 }
 
+/* Estilo para el botón de submit */
 .warrior-form button {
   padding: 8px 12px;
   border: none;
@@ -28,53 +31,46 @@
   background-color: #218838;
 }
 
-/* Estilo adicional para los campos de texto de los nuevos inputs */
+/* Estilo para las etiquetas */
 .warrior-form label {
   font-weight: bold;
   margin-bottom: 5px;
-  display: block; /* Asegura que el label esté encima del input */
+  display: block; /* Para que el label esté encima del input */
 }
 
+/* Contenedores para los grupos de campos */
 .warrior-form div {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-}
-
-.warrior-form input::placeholder {
-  font-style: italic; /* Los placeholders serán cursivos */
+  gap: 10px;
 }
 
 /* Estilo para los campos "Raza" y "Resistencia" juntos */
 .race-resistance-wrapper {
   display: flex;
-  gap: 15px; /* Espacio entre los dos campos */
-  width: 100%; /* Para que ocupe todo el ancho disponible */
-  background-color: #f0f8ff; /* Color de fondo suave para diferenciarlos */
-  padding: 10px; /* Espacio interno */
-  border-radius: 6px; /* Bordes redondeados para un acabado suave */
+  gap: 15px; /* Espacio entre los campos */
+  width: 100%;
+  background-color: #f0f8ff; /* Fondo suave */
+  padding: 10px;
+  border-radius: 6px;
 }
 
 .race-resistance-wrapper input {
-  width: 230px; /* El tamaño de los campos se ajusta para que ambos encajen en una fila */
-}
-
-.race-resistance-wrapper label {
-  color: #333; /* Color de texto neutro para los labels */
+  width: 230px; /* Ajuste para que ambos encajen */
 }
 
 /* Estilo para los campos "Poder" y "Poder de Ataque" juntos */
 .powers-wrapper {
   display: flex;
-  gap: 15px; /* Espacio entre los dos campos */
-  width: 100%; /* Para que ocupe todo el ancho disponible */
-  background-color: #f0f8ff; /* Fondo suave para diferenciarlos */
-  padding: 10px; /* Espacio interno */
-  border-radius: 6px; /* Bordes redondeados */
+  gap: 15px;
+  width: 100%;
+  background-color: #f0f8ff; /* Fondo suave */
+  padding: 10px;
+  border-radius: 6px;
 }
 
 .powers-wrapper input {
-  width: 230px; /* El tamaño de los campos se ajusta para que ambos encajen en una fila */
+  width: 230px; /* Ajuste para que ambos encajen */
 }
 
 .powers-wrapper small {
@@ -83,12 +79,14 @@
   margin-top: 5px;
 }
 
-/* Asegura que el campo "Poder de Ataque" esté alineado al lado de "Poder" */
+/* Estilo para el campo "Poder de Ataque" */
 .attack-power-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
+
+/* Estilo para las áreas de texto */
 .warrior-form textarea {
   width: 100%;
   padding: 8px;
@@ -100,4 +98,41 @@
 
 .warrior-form textarea::placeholder {
   font-style: italic;
+}
+
+/* Estilo para la imagen cargada del guerrero */
+.warrior-form .image-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.warrior-form .image-wrapper img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Estilo para el card del guerrero, asegurando que la imagen y el nombre estén alineados */
+.warrior-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.warrior-card img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.warrior-card h3 {
+  font-size: 18px;
+  margin: 0;
 }

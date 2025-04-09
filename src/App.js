@@ -8,31 +8,37 @@ function App() {
   const [warriors, setWarriors] = useState(initialWarriors);
   const [selectedWarrior, setSelectedWarrior] = useState(null);
   const [playerNick, setPlayerNick] = useState("");
-  const [playerLifePoints, setPlayerLifePoints] = useState(100); // Establecemos los puntos de vida para el jugador
-  const [playerScore, setPlayerScore] = useState(0); // Puntaje inicial del jugador
+  const [playerLifePoints, setPlayerLifePoints] = useState(100);
+  const [playerScore, setPlayerScore] = useState(0);
   const [hasEntered, setHasEntered] = useState(false);
   const [selectedWarriors, setSelectedWarriors] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // Solo se carga el nickname cuando el jugador entra en el juego
     const savedNick = localStorage.getItem("playerNick");
-
     if (savedNick) {
       setPlayerNick(savedNick);
       setHasEntered(true);
     }
   }, []);
 
+  const handleUpdateWarrior = (updatedWarrior) => {
+    setWarriors(warriors.map(w => 
+      w.id === updatedWarrior.id ? updatedWarrior : w
+    ));
+    setSelectedWarrior(updatedWarrior);
+  };
+
   const handleEnterGame = () => {
     if (playerNick.trim()) {
       setHasEntered(true);
+      localStorage.setItem("playerNick", playerNick);
     }
   };
 
   const addWarrior = (newWarrior) => {
     setWarriors([...warriors, newWarrior]);
-    setIsModalOpen(false); // Cerrar el modal después de agregar el guerrero
+    setIsModalOpen(false);
   };
 
   const handleViewDetails = (warrior) => {
@@ -54,23 +60,15 @@ function App() {
   const handleEditAttribute = (attribute) => {
     const newValue = prompt(`Editar ${attribute}:`, selectedWarrior[attribute]);
     if (newValue !== null) {
-      setSelectedWarrior({ ...selectedWarrior, [attribute]: newValue });
-      setWarriors(
-        warriors.map((w) =>
-          w.id === selectedWarrior.id ? { ...w, [attribute]: newValue } : w
-        )
-      );
+      const updatedWarrior = { ...selectedWarrior, [attribute]: newValue };
+      handleUpdateWarrior(updatedWarrior);
     }
   };
 
   const handleDeleteAttribute = (attribute) => {
     if (window.confirm(`¿Estás seguro de eliminar ${attribute}?`)) {
-      setSelectedWarrior({ ...selectedWarrior, [attribute]: "" });
-      setWarriors(
-        warriors.map((w) =>
-          w.id === selectedWarrior.id ? { ...w, [attribute]: "" } : w
-        )
-      );
+      const updatedWarrior = { ...selectedWarrior, [attribute]: "" };
+      handleUpdateWarrior(updatedWarrior);
     }
   };
 
@@ -79,28 +77,25 @@ function App() {
 
     if (!alreadySelected && playerLifePoints <= 0) {
       alert("No puedes seleccionar más guerreros porque se te han agotado los puntos de vida.");
-      return; // Evitamos que se seleccione más guerreros si no hay puntos de vida
+      return;
     }
 
     if (!alreadySelected && playerLifePoints > 0) {
-      // Reducir los puntos de vida por cada guerrero seleccionado
-      setPlayerLifePoints((prevLifePoints) => prevLifePoints - 10);
+      setPlayerLifePoints((prev) => prev - 10);
       setSelectedWarriors([...selectedWarriors, warrior]);
-      
-      // Aumentar el puntaje aleatorio
-      setPlayerScore((prevScore) => prevScore + Math.floor(Math.random() * 10) + 1); // Puntaje aleatorio entre 1 y 10
+      setPlayerScore((prev) => prev + 5);
     } else if (alreadySelected) {
       setSelectedWarriors(selectedWarriors.filter((w) => w.id !== warrior.id));
-      setPlayerLifePoints((prevLifePoints) => prevLifePoints + 10); // Restaurar puntos de vida cuando se deselecciona
-      // Quitar puntaje aleatorio al deseleccionar un guerrero
-      setPlayerScore((prevScore) => prevScore - Math.floor(Math.random() * 10) + 1); // Restar entre 1 y 10 puntos
+      setPlayerLifePoints((prev) => prev + 10);
+      setPlayerScore((prev) => prev - 5);
     }
   };
 
   const handleModifyNick = () => {
     const newNick = prompt("Introduce un nuevo nickname:", playerNick);
-    if (newNick && newNick.trim()) {
+    if (newNick?.trim()) {
       setPlayerNick(newNick);
+      localStorage.setItem("playerNick", newNick);
     }
   };
 
@@ -111,15 +106,16 @@ function App() {
       setSelectedWarriors([]);
       setPlayerScore(0);
       setPlayerLifePoints(100);
+      localStorage.removeItem("playerNick");
     }
   };
 
   const openModal = () => {
-    setIsModalOpen(true); // Abrir el modal
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); // Cerrar el modal
+    setIsModalOpen(false);
   };
 
   if (!hasEntered) {
@@ -142,14 +138,8 @@ function App() {
       <div className="player-card">
         <h2>Jugador: {playerNick}</h2>
         <p>Guerreros seleccionados: {selectedWarriors.length}/10</p>
-        
-        {/* Mostrar puntos de vida del jugador */}
         <p><strong>Puntos de Vida:</strong> {playerLifePoints}</p>
-        
-        {/* Mostrar puntaje del jugador */}
         <p><strong>Puntaje:</strong> {playerScore}</p>
-
-        {/* Contenedor de botones para modificar y eliminar */}
         <div className="player-actions">
           <button className="btn-red" onClick={handleModifyNick}>Modificar Nickname</button>
           <button className="btn-red" onClick={handleDeletePlayer}>Eliminar Jugador</button>
@@ -157,17 +147,14 @@ function App() {
       </div>
 
       <h1 className="title">Gestión de Guerreros</h1>
-      
-      {/* Botón para abrir el modal */}
       <button onClick={openModal} style={{ padding: "10px 20px", marginBottom: "20px" }}>
         Agregar Guerrero
       </button>
 
-      {/* Modal para agregar guerrero */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal">
-            <h2>Aceptar</h2>
+            <h2>Agregar Guerrero</h2>
             <AddWarriorForm onAdd={addWarrior} />
             <button onClick={closeModal}>Cerrar</button>
           </div>
@@ -191,6 +178,43 @@ function App() {
                 position: "relative",
               }}
             >
+              <div style={{
+                width: 50,
+                height: 50,
+                backgroundColor: '#f0f0f0',
+                borderRadius: 5,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden'
+              }}>
+                {warrior.image ? (
+                  <img 
+                    src={warrior.image.includes('http') ? warrior.image : `${process.env.PUBLIC_URL}${warrior.image}`}
+                    alt={warrior.name}
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'cover' 
+                    }}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = `${process.env.PUBLIC_URL}/images/default.jpg`;
+                    }}
+                  />
+                ) : (
+                  <img 
+                    src={`${process.env.PUBLIC_URL}/images/default.jpg`}
+                    alt="Default"
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'cover' 
+                    }}
+                  />
+                )}
+              </div>
+
               {isSelected && (
                 <div
                   style={{
@@ -256,6 +280,7 @@ function App() {
         onDelete={handleDeleteWarrior}
         onEditAttribute={handleEditAttribute}
         onDeleteAttribute={handleDeleteAttribute}
+        onUpdateWarrior={handleUpdateWarrior}
       />
     </div>
   );

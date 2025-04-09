@@ -13,10 +13,21 @@ function AddWarriorForm({ onAdd }) {
     attackPower: "",
     lifePoints: "", // Puntos de vida son obligatorios
     energy: "", // Agregar campo de energía
+    image: "", // Campo para la imagen
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleImageChange = (e) => {
+    // Verificamos si hay un archivo seleccionado
+    const file = e.target.files[0];
+    if (file) {
+      // Creamos una URL para la imagen cargada
+      const imageUrl = URL.createObjectURL(file);
+      setFormData({ ...formData, image: imageUrl });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -55,6 +66,7 @@ function AddWarriorForm({ onAdd }) {
       attackPower: "",
       lifePoints: "", // Puntos de vida no tienen valor predeterminado
       energy: "", // Reseteamos el campo de energía también
+      image: "", // Limpiamos la imagen
     });
   };
 
@@ -206,6 +218,26 @@ function AddWarriorForm({ onAdd }) {
           min="0"
           required // Asegura que la energía sea obligatoria también
         />
+      </div>
+
+      {/* Campo para agregar imagen */}
+      <div>
+        <label>Imagen del Guerrero:</label>
+        <input
+          name="image"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+        {formData.image && (
+          <div>
+            <img
+              src={formData.image}
+              alt="Previsualización"
+              style={{ width: "100px", height: "100px", objectFit: "cover" }}
+            />
+          </div>
+        )}
       </div>
 
       <button type="submit">Agregar Guerrero</button>
