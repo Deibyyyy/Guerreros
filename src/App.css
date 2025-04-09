@@ -229,3 +229,281 @@ button:hover {
   height: 100%;
   object-fit: cover;
 }
+/* Estilos para el buscador */
+.search-container {
+  display: flex;
+  margin: 20px auto;
+  max-width: 500px;
+  position: relative;
+  width: 90%;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 20px;
+  border: 2px solid #00bcd4;
+  border-radius: 30px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-input:focus {
+  border-color: #00796b;
+  box-shadow: 0 0 8px rgba(0, 188, 212, 0.5);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: #777;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.clear-search-btn:hover {
+  color: #f44336;
+}
+
+.add-warrior-btn {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.add-warrior-btn:hover {
+  background-color: #45a049;
+}
+
+.no-results {
+  text-align: center;
+  padding: 30px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.no-results p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.no-results button {
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.no-results button:hover {
+  background-color: #d32f2f;
+}
+
+/* Mejoras adicionales para las tarjetas */
+.warrior-card {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 15px;
+  transition: all 0.3s;
+  background-color: white;
+}
+
+.warrior-card.selected {
+  border: 2px solid #4CAF50;
+  background-color: #f8fff8;
+}
+
+.warrior-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.warrior-image-container {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ddd;
+}
+
+.warrior-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.warrior-info {
+  margin-bottom: 15px;
+}
+
+.warrior-info h3 {
+  margin: 0 0 10px;
+  color: #333;
+}
+
+.warrior-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.warrior-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.select-btn, .details-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.select-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.select-btn.deselect {
+  background-color: #f44336;
+}
+
+.details-btn {
+  background-color: #2196F3;
+  color: white;
+}
+
+.select-btn:hover {
+  opacity: 0.9;
+}
+
+.details-btn:hover {
+  background-color: #0b7dda;
+}
+
+.selected-badge {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background-color: #4CAF50;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Panel de seleccionados mejorado */
+.selected-warriors-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  max-width: 300px;
+  width: 90%;
+  z-index: 100;
+  border: 1px solid #eee;
+}
+
+.selected-warriors-panel strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #00796b;
+  font-size: 18px;
+}
+
+.selected-warriors-panel ol {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.selected-warriors-panel li {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #eee;
+}
+
+.selection-stats {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+}
+
+.selection-stats p {
+  margin: 5px 0;
+  color: #555;
+}
+/* Estilos para el panel de seleccionados - versión compacta */
+.selected-warriors-panel {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 200px;
+  width: auto;
+  z-index: 100;
+  border: 1px solid #ddd;
+  font-size: 13px;
+}
+
+.selected-warriors-panel strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #00796b;
+  font-size: 14px;
+}
+
+.selected-warriors-panel ol {
+  padding-left: 18px;
+  margin: 6px 0;
+}
+
+.selected-warriors-panel li {
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px dotted #eee;
+  line-height: 1.3;
+}
+
+.selection-stats {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  font-size: 12px;
+}
+
+.selection-stats p {
+  margin: 3px 0;
+  color: #555;
+}
+
+/* Mantén todos los otros estilos existentes sin cambios */

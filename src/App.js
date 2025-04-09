@@ -6,6 +6,8 @@ import "./App.css";
 
 function App() {
   const [warriors, setWarriors] = useState(initialWarriors);
+  const [filteredWarriors, setFilteredWarriors] = useState(initialWarriors);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedWarrior, setSelectedWarrior] = useState(null);
   const [playerNick, setPlayerNick] = useState("");
   const [playerLifePoints, setPlayerLifePoints] = useState(100);
@@ -13,6 +15,17 @@ function App() {
   const [hasEntered, setHasEntered] = useState(false);
   const [selectedWarriors, setSelectedWarriors] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Filtra los guerreros según el término de búsqueda
+  useEffect(() => {
+    const results = warriors.filter(warrior =>
+      warrior.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      warrior.race.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      warrior.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      warrior.power.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredWarriors(results);
+  }, [searchTerm, warriors]);
 
   useEffect(() => {
     const savedNick = localStorage.getItem("playerNick");
@@ -23,9 +36,10 @@ function App() {
   }, []);
 
   const handleUpdateWarrior = (updatedWarrior) => {
-    setWarriors(warriors.map(w => 
+    const updatedWarriors = warriors.map(w => 
       w.id === updatedWarrior.id ? updatedWarrior : w
-    ));
+    );
+    setWarriors(updatedWarriors);
     setSelectedWarrior(updatedWarrior);
   };
 
@@ -37,7 +51,9 @@ function App() {
   };
 
   const addWarrior = (newWarrior) => {
-    setWarriors([...warriors, newWarrior]);
+    const updatedWarriors = [...warriors, newWarrior];
+    setWarriors(updatedWarriors);
+    setFilteredWarriors(updatedWarriors);
     setIsModalOpen(false);
   };
 
@@ -51,7 +67,9 @@ function App() {
 
   const handleDeleteWarrior = (id) => {
     if (window.confirm("¿Estás seguro de eliminar este guerrero?")) {
-      setWarriors(warriors.filter((w) => w.id !== id));
+      const updatedWarriors = warriors.filter((w) => w.id !== id);
+      setWarriors(updatedWarriors);
+      setFilteredWarriors(updatedWarriors);
       setSelectedWarrior(null);
       setSelectedWarriors(selectedWarriors.filter((w) => w.id !== id));
     }
@@ -147,7 +165,31 @@ function App() {
       </div>
 
       <h1 className="title">Gestión de Guerreros</h1>
-      <button onClick={openModal} style={{ padding: "10px 20px", marginBottom: "20px" }}>
+      
+      {/* Barra de búsqueda */}
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Buscar por nombre, raza o tipo..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+        {searchTerm && (
+          <button 
+            onClick={() => setSearchTerm("")}
+            className="clear-search-btn"
+            aria-label="Limpiar búsqueda"
+          >
+            ×
+          </button>
+        )}
+      </div>
+
+      <button 
+        onClick={openModal} 
+        className="add-warrior-btn"
+      >
         Agregar Guerrero
       </button>
 
@@ -161,117 +203,88 @@ function App() {
         </div>
       )}
 
-      <hr />
       <div className="warrior-list">
-        {warriors.map((warrior) => {
-          const isSelected = selectedWarriors.some((w) => w.id === warrior.id);
-          const selectedIndex = selectedWarriors.findIndex((w) => w.id === warrior.id);
+        {filteredWarriors.length > 0 ? (
+          filteredWarriors.map((warrior) => {
+            const isSelected = selectedWarriors.some((w) => w.id === warrior.id);
+            const selectedIndex = selectedWarriors.findIndex((w) => w.id === warrior.id);
 
-          return (
-            <div
-              key={warrior.id}
-              className="warrior-card"
-              style={{
-                border: isSelected ? "2px solid green" : "1px solid gray",
-                marginBottom: "10px",
-                padding: "10px",
-                position: "relative",
-              }}
-            >
-              <div style={{
-                width: 50,
-                height: 50,
-                backgroundColor: '#f0f0f0',
-                borderRadius: 5,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden'
-              }}>
-                {warrior.image ? (
-                  <img 
-                    src={warrior.image.includes('http') ? warrior.image : `${process.env.PUBLIC_URL}${warrior.image}`}
-                    alt={warrior.name}
-                    style={{ 
-                      width: '100%', 
-                      height: '100%', 
-                      objectFit: 'cover' 
-                    }}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = `${process.env.PUBLIC_URL}/images/default.jpg`;
-                    }}
-                  />
-                ) : (
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/images/default.jpg`}
-                    alt="Default"
-                    style={{ 
-                      width: '100%', 
-                      height: '100%', 
-                      objectFit: 'cover' 
-                    }}
-                  />
-                )}
-              </div>
-
-              {isSelected && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "-10px",
-                    left: "-10px",
-                    backgroundColor: "#2ecc71",
-                    color: "white",
-                    borderRadius: "50%",
-                    width: "26px",
-                    height: "26px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "15px",
-                    fontWeight: "bold",
-                    boxShadow: "0 0 5px rgba(0,0,0,0.3)",
-                  }}
-                >
-                  {selectedIndex + 1}
+            return (
+              <div
+                key={warrior.id}
+                className={`warrior-card ${isSelected ? 'selected' : ''}`}
+              >
+                <div className="warrior-image-container">
+                  {warrior.image ? (
+                    <img 
+                      src={warrior.image.includes('http') ? warrior.image : `${process.env.PUBLIC_URL}${warrior.image}`}
+                      alt={warrior.name}
+                      className="warrior-image"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = `${process.env.PUBLIC_URL}/images/default.jpg`;
+                      }}
+                    />
+                  ) : (
+                    <img 
+                      src={`${process.env.PUBLIC_URL}/images/default.jpg`}
+                      alt="Default"
+                      className="warrior-image"
+                    />
+                  )}
                 </div>
-              )}
 
-              <h3>{warrior.name}</h3>
-              <p>Raza: {warrior.race}</p>
-              <p>Tipo: {warrior.type}</p>
-              <button onClick={() => handleSelectWarrior(warrior)}>
-                {isSelected ? "Quitar" : "Seleccionar"}
-              </button>
-              <button onClick={() => handleViewDetails(warrior)}>Ver Detalles</button>
-            </div>
-          );
-        })}
+                {isSelected && (
+                  <div className="selected-badge">
+                    {selectedIndex + 1}
+                  </div>
+                )}
+
+                <div className="warrior-info">
+                  <h3>{warrior.name}</h3>
+                  <p><strong>Raza:</strong> {warrior.race}</p>
+                  <p><strong>Tipo:</strong> {warrior.type}</p>
+                  <p><strong>Poder:</strong> {warrior.power}</p>
+                </div>
+
+                <div className="warrior-actions">
+                  <button 
+                    onClick={() => handleSelectWarrior(warrior)}
+                    className={`select-btn ${isSelected ? 'deselect' : ''}`}
+                  >
+                    {isSelected ? "Quitar" : "Seleccionar"}
+                  </button>
+                  <button 
+                    onClick={() => handleViewDetails(warrior)}
+                    className="details-btn"
+                  >
+                    Ver Detalles
+                  </button>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="no-results">
+            <p>No se encontraron guerreros que coincidan con "{searchTerm}"</p>
+            <button onClick={() => setSearchTerm("")}>Limpiar búsqueda</button>
+          </div>
+        )}
       </div>
 
-      <div
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          background: "linear-gradient(135deg, #fefefe, #e0f7fa)",
-          padding: "20px",
-          borderRadius: "14px",
-          fontSize: "16px",
-          color: "#333",
-          boxShadow: "0 6px 14px rgba(0,0,0,0.25)",
-          maxWidth: "260px",
-          zIndex: 999,
-          border: "2px solid #00bcd4",
-        }}
-      >
-        <strong style={{ fontSize: "17px", color: "#00796b" }}> Seleccionados:</strong>
-        <ol style={{ paddingLeft: "20px", marginTop: "10px", marginBottom: "0" }}>
+      <div className="selected-warriors-panel">
+        <strong>Guerreros Seleccionados:</strong>
+        <ol>
           {selectedWarriors.map((w) => (
-            <li key={w.id} style={{ marginBottom: "6px" }}>{w.name}</li>
+            <li key={w.id}>{w.name} ({w.type})</li>
           ))}
         </ol>
+        {selectedWarriors.length > 0 && (
+          <div className="selection-stats">
+            <p>Total seleccionados: {selectedWarriors.length}</p>
+            <p>Poder total: {selectedWarriors.reduce((sum, w) => sum + parseInt(w.attackPower || 0), 0)}</p>
+          </div>
+        )}
       </div>
 
       <WarriorDetail
