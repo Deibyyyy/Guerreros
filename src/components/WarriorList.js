@@ -1,4 +1,3 @@
-// WarriorList.js
 import React from "react";
 import "./WarriorList.css";
 

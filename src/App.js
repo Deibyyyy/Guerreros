@@ -16,7 +16,21 @@ function App() {
   const [selectedWarriors, setSelectedWarriors] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Filtra los guerreros según el término de búsqueda
+  // Estados compartidos
+  const [customTypes, setCustomTypes] = useState([
+    { name: "Guerrero", description: "Especialista en combate cuerpo a cuerpo" },
+    { name: "Mago", description: "Maestro de artes arcanas y hechizos" },
+    { name: "Arquero", description: "Experto en ataques a distancia" },
+    { name: "Asesino", description: "Especialista en ataques sigilosos y críticos" }
+  ]);
+
+  const [customPowers, setCustomPowers] = useState([
+    { name: "Fuego", description: "Control sobre llamas y calor" },
+    { name: "Hielo", description: "Manipulación de frío y escarcha" },
+    { name: "Electricidad", description: "Dominio de rayos y energía eléctrica" },
+    { name: "Sombra", description: "Poderes oscuros y sigilo" }
+  ]);
+
   useEffect(() => {
     const results = warriors.filter(warrior =>
       warrior.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -166,7 +180,6 @@ function App() {
 
       <h1 className="title">Gestión de Guerreros</h1>
       
-      {/* Barra de búsqueda */}
       <div className="search-container">
         <input
           type="text"
@@ -197,7 +210,13 @@ function App() {
         <div className="modal-overlay">
           <div className="modal">
             <h2>Agregar Guerrero</h2>
-            <AddWarriorForm onAdd={addWarrior} />
+            <AddWarriorForm 
+              onAdd={addWarrior}
+              customTypes={customTypes}
+              customPowers={customPowers}
+              setCustomTypes={setCustomTypes}
+              setCustomPowers={setCustomPowers}
+            />
             <button onClick={closeModal}>Cerrar</button>
           </div>
         </div>
@@ -287,14 +306,16 @@ function App() {
         )}
       </div>
 
-      <WarriorDetail
-        warrior={selectedWarrior}
-        onClose={handleCloseDetail}
-        onDelete={handleDeleteWarrior}
-        onEditAttribute={handleEditAttribute}
-        onDeleteAttribute={handleDeleteAttribute}
-        onUpdateWarrior={handleUpdateWarrior}
-      />
+      {selectedWarrior && (
+        <WarriorDetail
+          warrior={selectedWarrior}
+          onClose={handleCloseDetail}
+          onDelete={handleDeleteWarrior}
+          onUpdateWarrior={handleUpdateWarrior}
+          customTypes={customTypes}
+          customPowers={customPowers}
+        />
+      )}
     </div>
   );
 }

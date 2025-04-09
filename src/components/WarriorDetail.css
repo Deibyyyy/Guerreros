@@ -1,4 +1,4 @@
-/* Estilos para el fondo oscuro del modal */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -12,7 +12,6 @@
   z-index: 1000;
 }
 
-/* Estilos para el contenedor principal del modal */
 .modal {
   background: white;
   padding: 25px;
@@ -25,7 +24,6 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Botón de cerrar */
 .close-button {
   position: absolute;
   top: 10px;
@@ -41,8 +39,6 @@
 .close-button:hover {
   color: #f44336;
 }
-
-/* Estilos para las filas de atributos */
 .attribute-row {
   display: flex;
   align-items: center;
@@ -62,7 +58,6 @@
   color: #555;
 }
 
-/* Estilos específicos para la fila de imagen */
 .image-row {
   flex-direction: column;
   align-items: flex-start;
@@ -72,7 +67,6 @@
   margin-bottom: 20px;
 }
 
-/* Contenedor de la imagen */
 .warrior-image-container {
   width: 150px;
   height: 150px;
@@ -92,14 +86,12 @@
   background-color: #f9f9f9;
 }
 
-/* Estilos para la imagen del guerrero */
 .warrior-image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
 
-/* Placeholder cuando no hay imagen */
 .image-placeholder {
   font-size: 3rem;
   color: #999;
@@ -111,7 +103,6 @@
   justify-content: center;
 }
 
-/* Botón para eliminar imagen */
 .delete-image-button {
   position: absolute;
   top: 5px;
@@ -133,7 +124,6 @@
   background: rgba(0, 0, 0, 0.7);
 }
 
-/* Botón para editar imagen */
 .edit-image-button {
   margin: 10px 0;
   padding: 8px 15px;
@@ -150,7 +140,6 @@
   background: #45a049;
 }
 
-/* Botones de iconos (editar/eliminar) */
 .icon-button {
   background: none;
   border: none;
@@ -166,7 +155,6 @@
   color: #2196F3;
 }
 
-/* Botón para eliminar guerrero */
 .delete-warrior-button {
   margin-top: 20px;
   padding: 10px 20px;
@@ -184,7 +172,6 @@
   background: #d32f2f;
 }
 
-/* Títulos de sección */
 h2 {
   color: #333;
   margin-bottom: 20px;
@@ -213,4 +200,226 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+/* Add to WarriorDetail.css */
+.attribute-row.editing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.edit-input, .edit-select {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-select {
+  padding: 6px 4px;
+}
+
+.icon-button.save-button {
+  color: green;
+}
+
+.icon-button.cancel-button {
+  color: red;
+}
+
+.warrior-image-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 10px;
+}
+
+.delete-image-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+/* WarriorDetail.css */
+.select-container {
+  position: relative;
+  flex: 1;
+}
+
+.edit-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+.edit-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Flecha del select */
+.select-container::after {
+  content: "▼";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #666;
+  font-size: 0.8em;
+}
+
+.attribute-row.editing {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  flex-wrap: wrap;
+}
+
+.edit-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 5px;
+}
+
+.save-button {
+  color: #28a745;
+}
+
+.cancel-button {
+  color: #dc3545;
+}
+/* WarriorDetail.css */
+.select-container {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.edit-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.edit-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.edit-select option {
+  padding: 8px;
+  background: white;
+  color: #333;
+}
+
+.select-container::after {
+  content: "▼";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #666;
+  font-size: 0.8em;
+}
+
+.attribute-row.editing {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.edit-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 200px;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 5px;
+}
+
+.save-button {
+  color: #28a745;
+}
+
+.cancel-button {
+  color: #dc3545;
+}
+
+.warrior-image-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 10px;
+}
+
+.delete-image-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
